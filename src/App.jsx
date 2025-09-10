@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
 import logo from "./assets/download.jpeg";
-
 import Login from "./components/Login.jsx";
 import Signup from "./components/Signup.jsx";
 import AddEvent from "./components/AddEvent.jsx";
@@ -25,13 +24,12 @@ function App() {
   return (
     <Router>
       <div className="app-container">
-        {/* Header with navigation */}
+        {/* Header with navigation for all pages */}
         <header className="navbar">
           <div className="navbar-brand">
             <img src={logo} alt="ICT Logo" className="brand-logo" />
-            <h1 className="brand-title">ICT University Events</h1>
+            <p>ICT University Events</p>
           </div>
-
           <button
             className="hamburger"
             onClick={toggleDrawer}
@@ -39,7 +37,6 @@ function App() {
           >
             <span className="hamburger-icon"></span>
           </button>
-
           <div className={`drawer ${isDrawerOpen ? "open" : ""}`}>
             <div className="navbar-links">
               <Link to="/" onClick={() => setIsDrawerOpen(false)}>
@@ -86,7 +83,8 @@ function App() {
               element={<BookingConfirmation />}
             />
             <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="/eventDetails" element={<EventDetails />} />
+            {/* FIXED: Added :id parameter to the route */}
+            <Route path="/eventDetails/:id" element={<EventDetails />} />
             <Route path="/myEvents" element={<MyEvents />} />
             <Route path="/about" element={<div>About ICT Events Page</div>} />
             <Route
