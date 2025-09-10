@@ -1,0 +1,129 @@
+.add-event-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #f3f4f6;
+  padding: 1rem;
+}
+
+.add-event-box {
+  background-color: white;
+  padding: 2rem;
+  border-radius: 0.75rem;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 28rem;
+  transition: transform 0.3s ease;
+}
+
+.add-event-box:hover {
+  transform: translateY(-2px);
+}
+
+.add-event-title {
+  font-size: 1.75rem;
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+  text-align: center;
+  color: #111827;
+}
+
+.add-event-subtitle {
+  color: #6b7280;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  font-size: 0.95rem;
+  line-height: 1.4;
+}
+
+/* Inputs & Textareas */
+.add-event-input,
+.add-event-textarea {
+  width: 100%;
+  padding: 1rem; /* Increased padding for bigger size */
+  margin-bottom: 1rem;
+  border: 1px solid #d1d5db;
+  border-radius: 0.5rem;
+  font-size: 1rem; /* Larger text */
+  color: #111827;
+  background-color: white; /* Ensures white background */
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.add-event-input:focus,
+.add-event-textarea:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+  outline: none;
+}
+
+.add-event-textarea {
+  resize: vertical;
+  min-height: 6rem; /* Increased height */
+}
+
+.add-event-date-time {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.add-event-date-time .half {
+  width: 50%;
+}
+
+.add-event-button {
+  width: 100%;
+  background-color: #3b82f6;
+  color: white;
+  padding: 0.85rem; /* Bigger button */
+  border-radius: 0.5rem;
+  border: none;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 1.05rem;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.add-event-button:hover {
+  background-color: #2563eb;
+  transform: translateY(-1px);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .add-event-box {
+    padding: 1.75rem;
+    max-width: 24rem;
+  }
+
+  .add-event-title {
+    font-size: 1.5rem;
+  }
+
+  .add-event-subtitle {
+    font-size: 0.9rem;
+  }
+
+  .add-event-input,
+  .add-event-textarea {
+    padding: 0.9rem;
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .add-event-box {
+    padding: 1.5rem;
+    max-width: 100%;
+  }
+
+  .add-event-date-time {
+    flex-direction: column;
+  }
+
+  .add-event-date-time .half {
+    width: 100%;
+  }
+}
