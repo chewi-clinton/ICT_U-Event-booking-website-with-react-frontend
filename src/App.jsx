@@ -11,6 +11,7 @@ import Dashboard from "./components/Dashboard.jsx";
 import EventDetails from "./components/EventDetails.jsx";
 import MyEvents from "./components/MyEvents.jsx";
 import Home from "./components/Home.jsx";
+import AdminDashboard from "./components/AdminSections.jsx";
 
 import "./styles/App.css";
 
@@ -78,6 +79,7 @@ function App() {
             <Route path="/addEvent" element={<AddEvent />} />
             <Route path="/analytics" element={<Analytics />} />
             <Route path="/calendar" element={<Calendar />} />
+            <Route path="/admindashboard" element={<AdminDashboard />} />
             <Route
               path="/bookingConfirmation"
               element={<BookingConfirmation />}
