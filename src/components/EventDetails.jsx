@@ -173,7 +173,7 @@ const EventDetails = () => {
               <li>
                 <span className="info-icon">💸</span>
                 {event.ticket_price !== undefined && event.ticket_price !== null
-                  ? `$${event.ticket_price}`
+                  ? `FCFA${event.ticket_price}`
                   : "Free"}
               </li>
               <li>

@@ -17,7 +17,6 @@ const BookingConfirmation = () => {
         setIsLoading(true);
         setError(null);
 
-        // Method 1: Get booking data from navigation state (recommended)
         if (location.state?.bookingData) {
           console.log(
             "Using booking data from navigation state:",
@@ -28,13 +27,11 @@ const BookingConfirmation = () => {
           return;
         }
 
-        // Method 2: Get booking ID from URL params and fetch from API
         const bookingId = searchParams.get("bookingId");
         if (bookingId) {
           console.log("Fetching booking details for ID:", bookingId);
           const response = await api.get(`bookings/${bookingId}/`);
 
-          // Format the response to match our display needs
           const booking = response.data;
           const formattedBooking = {
             id: booking.id,
@@ -46,7 +43,7 @@ const BookingConfirmation = () => {
               ? new Date(booking.event.event_date).toLocaleTimeString()
               : "Time TBA",
             location: booking.event?.location || "Location TBA",
-            ticket_type: "General Admission", // You can modify this based on your booking model
+            ticket_type: "ICT Event Registration",
             quantity: booking.seats_booked || 1,
             total: booking.amount_paid || 0,
             booking_date: booking.booking_date
@@ -59,7 +56,6 @@ const BookingConfirmation = () => {
           return;
         }
 
-        // Method 3: Get event ID from URL and create a mock booking (fallback)
         const eventId = searchParams.get("eventId");
         if (eventId) {
           console.log("Creating booking confirmation for event ID:", eventId);
@@ -72,7 +68,7 @@ const BookingConfirmation = () => {
             time: new Date(event.event_date).toLocaleTimeString(),
             location: event.location,
             ticket_type: "General Admission",
-            quantity: 1, // Default quantity
+            quantity: 1,
             total: event.ticket_price,
             booking_date: new Date().toLocaleDateString(),
           };

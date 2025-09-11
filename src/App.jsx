@@ -1,5 +1,11 @@
-import React, { useState } from "react";
-import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
+import React, { useState, Component } from "react";
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  Link,
+  useLocation,
+} from "react-router-dom";
 import logo from "./assets/download.jpeg";
 import Login from "./components/Login.jsx";
 import Signup from "./components/Signup.jsx";
@@ -12,20 +18,52 @@ import EventDetails from "./components/EventDetails.jsx";
 import MyEvents from "./components/MyEvents.jsx";
 import Home from "./components/Home.jsx";
 import AdminDashboard from "./components/AdminSections.jsx";
-
+import Attendees from "./components/Attendees.jsx";
+import Bookings from "./components/Bookings.jsx";
+import Speakers from "./components/Speakers.jsx";
+import Sessions from "./components/Sessions.jsx";
+import Registrations from "./components/Registrations.jsx";
+import Reports from "./components/Reports.jsx";
+import AddSpeaker from "./components/AddSpeaker.jsx";
+import AddSession from "./components/AddSession.jsx";
 import "./styles/App.css";
 
-function App() {
+// Error Boundary Component
+class ErrorBoundary extends Component {
+  state = { error: null };
+
+  static getDerivedStateFromError(error) {
+    return { error };
+  }
+
+  render() {
+    if (this.state.error) {
+      return (
+        <div className="error-container">
+          <h2>Something went wrong</h2>
+          <p>{this.state.error.message}</p>
+          <button onClick={() => window.location.reload()}>Refresh Page</button>
+        </div>
+      );
+    }
+    return this.props.children;
+  }
+}
+
+// Child component to use useLocation within Router context
+const AppContent = () => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const location = useLocation();
 
   const toggleDrawer = () => {
     setIsDrawerOpen(!isDrawerOpen);
   };
 
+  const noHeaderRoutes = ["/", "/login", "/signup"];
+
   return (
-    <Router>
-      <div className="app-container">
-        {/* Header with navigation for all pages */}
+    <div className="app-container">
+      {!noHeaderRoutes.includes(location.pathname) && (
         <header className="navbar">
           <div className="navbar-brand">
             <img src={logo} alt="ICT Logo" className="brand-logo" />
@@ -69,33 +107,49 @@ function App() {
             </div>
           </div>
         </header>
+      )}
 
-        {/* Main page content */}
-        <main className="main-content">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/signup" element={<Signup />} />
-            <Route path="/addEvent" element={<AddEvent />} />
-            <Route path="/analytics" element={<Analytics />} />
-            <Route path="/calendar" element={<Calendar />} />
-            <Route path="/admindashboard" element={<AdminDashboard />} />
-            <Route
-              path="/bookingConfirmation"
-              element={<BookingConfirmation />}
-            />
-            <Route path="/dashboard" element={<Dashboard />} />
-            {/* FIXED: Added :id parameter to the route */}
-            <Route path="/eventDetails/:id" element={<EventDetails />} />
-            <Route path="/myEvents" element={<MyEvents />} />
-            <Route path="/about" element={<div>About ICT Events Page</div>} />
-            <Route
-              path="/contact"
-              element={<div>Contact ICT University Events</div>}
-            />
-          </Routes>
-        </main>
-      </div>
+      <main className="main-content">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/addEvent" element={<AddEvent />} />
+          <Route path="/analytics" element={<Analytics />} />
+          <Route path="/calendar" element={<Calendar />} />
+          <Route path="/admindashboard" element={<AdminDashboard />} />
+          <Route
+            path="/bookingConfirmation"
+            element={<BookingConfirmation />}
+          />
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/eventDetails/:id" element={<EventDetails />} />
+          <Route path="/myEvents" element={<MyEvents />} />
+          <Route path="/about" element={<div>About ICT Events Page</div>} />
+          <Route
+            path="/contact"
+            element={<div>Contact ICT University Events</div>}
+          />
+          <Route path="/attendees" element={<Attendees />} />
+          <Route path="/bookings" element={<Bookings />} />
+          <Route path="/speakers" element={<Speakers />} />
+          <Route path="/speakers/create" element={<AddSpeaker />} />
+          <Route path="/sessions" element={<Sessions />} />
+          <Route path="/sessions/create" element={<AddSession />} />
+          <Route path="/registrations" element={<Registrations />} />
+          <Route path="/reports" element={<Reports />} />
+        </Routes>
+      </main>
+    </div>
+  );
+};
+
+function App() {
+  return (
+    <Router>
+      <ErrorBoundary>
+        <AppContent />
+      </ErrorBoundary>
     </Router>
   );
 }

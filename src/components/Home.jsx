@@ -16,8 +16,8 @@ const Home = () => {
           Explore a wide range of academic, social, and cultural events
           happening at ICT University. Find your next great experience today.
         </p>
-        <button onClick={() => navigate("/myEvents")} className="home-button">
-          View All Events
+        <button onClick={() => navigate("/login")} className="home-button">
+          Get Started
         </button>
       </div>
     </div>
